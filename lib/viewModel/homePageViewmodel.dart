@@ -9,20 +9,53 @@ import 'package:realm/realm.dart';
 class HomePageViewModel with ChangeNotifier {
   Color pickedColor = Color(0xFF);
   late IconData pickedIcon;
+
+  late int iconCodePoint;
+  late String iconFontFamily;
+  late String iconFontPackage;
+  late bool iconDirection;
+
   List<CategoryModel> caategoryList = [
     CategoryModel(
         categoryName: "Daily Tasks",
-        cardColor: orangePinkColor,
-        relevantIcon: FontAwesomeIcons.heart),
+        cardColor: orangePinkColor.value,
+        // relevantIcon: FontAwesomeIcons.heart,
+        iconInformation: [
+          IconInformation(
+            iconCodePoint: FontAwesomeIcons.heart.codePoint,
+            iconFontFamily: FontAwesomeIcons.heart.fontFamily,
+            iconFontPackage: FontAwesomeIcons.heart.fontPackage,
+            IconDirection: FontAwesomeIcons.heart.matchTextDirection,
+          ),
+        ]),
     CategoryModel(
         categoryName: "School Tasks",
-        cardColor: SkyblueColor,
-        relevantIcon: FontAwesomeIcons.bagShopping),
+        cardColor: SkyblueColor.value,
+        // relevantIcon: FontAwesomeIcons.bagShopping,
+        iconInformation: [
+          IconInformation(
+            iconCodePoint: FontAwesomeIcons.bagShopping.codePoint,
+            iconFontFamily: FontAwesomeIcons.bagShopping.fontFamily,
+            iconFontPackage: FontAwesomeIcons.bagShopping.fontPackage,
+            IconDirection: FontAwesomeIcons.bagShopping.matchTextDirection,
+          ),
+        ]),
     CategoryModel(
         categoryName: "Shopping Lists",
-        cardColor: pink,
-        relevantIcon: FontAwesomeIcons.cartShopping),
+        cardColor: pink.value,
+        // relevantIcon: FontAwesomeIcons.cartShopping,
+        iconInformation: [
+          IconInformation(
+            iconCodePoint: FontAwesomeIcons.cartShopping.codePoint,
+            iconFontFamily: FontAwesomeIcons.cartShopping.fontFamily,
+            iconFontPackage: FontAwesomeIcons.cartShopping.fontPackage,
+            IconDirection: FontAwesomeIcons.cartShopping.matchTextDirection,
+          ),
+        ]),
   ];
+
+
+
   set setCategoryList(List<CategoryModel> Newlist) {
     Newlist = caategoryList;
     notifyListeners();
@@ -37,22 +70,29 @@ class HomePageViewModel with ChangeNotifier {
 
   IconData get getIconData => pickedIcon;
 
-  Future<void> addCategory(String name, Color pickedColor) async {
-    caategoryList.add(
-      CategoryModel(
-        categoryName: name,
-        cardColor: pickedColor,
-        relevantIcon: getIconData,
-      ),
-    );
-    setCategoryList = caategoryList;
-  }
+  // Future<void> addCategory(String name, Color pickedColor) async {
+  //   caategoryList.add(
+  //     CategoryModel(
+  //       categoryName: name,
+  //       cardColor: pickedColor.value,
+  //       relevantIcon: getIconData,
+  //     ),
+  //   );
+  //   setCategoryList = caategoryList;
+  // }
 
   Future<IconData> pickIcon(BuildContext context) async {
     pickedIcon = await FlutterIconPicker.showIconPicker(context,
         iconPackModes: [IconPack.fontAwesomeIcons]) as IconData;
     setIconData = pickedIcon;
 
+    int iconCode = getIconData.codePoint;
+    String iconFontFamily = getIconData.fontFamily.toString();
+    String iconFontPackage = getIconData.fontPackage.toString();
+    bool iconirection = getIconData.matchTextDirection;
+
+    print("Icon Information");
+    print("$iconCode + $iconFontFamily + $iconFontPackage + $iconirection");
     debugPrint('Picked Icon: $getIconData');
     return getIconData;
   }

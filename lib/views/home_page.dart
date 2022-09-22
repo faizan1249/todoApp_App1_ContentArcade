@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:todo_app_day1/constants/app_colors.dart';
 import 'package:todo_app_day1/model/categoryModel.dart';
 import 'package:todo_app_day1/viewModel/homePageViewmodel.dart';
@@ -31,7 +32,7 @@ class _HomePageState extends State<HomePage> {
           leading: IconButton(
             color: Colors.black,
             iconSize: 32,
-            icon: Icon(Icons.menu),
+            icon: const Icon(Icons.menu),
             onPressed: () {},
           ),
           centerTitle: true,
@@ -49,7 +50,7 @@ class _HomePageState extends State<HomePage> {
               children: [
                 Container(
                   width: double.infinity,
-                  padding: EdgeInsets.symmetric(horizontal: 30),
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: Column(
                     children: [
                       Container(
@@ -68,18 +69,29 @@ class _HomePageState extends State<HomePage> {
                 GridView.builder(
                     shrinkWrap: true,
                     itemCount: homePageViewModel.caategoryList.length,
-                    physics: ScrollPhysics(),
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    physics: const ScrollPhysics(),
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2),
                     itemBuilder: (context, index) {
                       return CategoryMenuCard(
                         categoryName: homePageViewModel
                             .getCategoryList[index].categoryName
                             .toString(),
-                        cardColor:
-                            homePageViewModel.getCategoryList[index].cardColor,
-                        cardIcon: homePageViewModel
-                            .getCategoryList[index].relevantIcon,
+                        cardColor: Color(
+                            homePageViewModel.getCategoryList[index].cardColor),
+                        cardIcon: IconData(
+                          homePageViewModel.getCategoryList[index]
+                              .iconInformation[0].iconCodePoint as int,
+                          fontFamily: homePageViewModel.getCategoryList[index]
+                              .iconInformation[0].iconFontFamily,
+                          fontPackage: homePageViewModel.getCategoryList[index]
+                              .iconInformation[0].iconFontPackage,
+                          matchTextDirection: homePageViewModel
+                              .getCategoryList[index]
+                              .iconInformation[0]
+                              .IconDirection as bool,
+                        ),
+                        
                       );
                     }),
                 AddCategory(
@@ -127,12 +139,12 @@ class CategoryMenuCard extends StatelessWidget {
               child: Icon(cardIcon),
             ),
             Padding(
-              padding: EdgeInsets.only(bottom: 20),
+              padding: const EdgeInsets.only(bottom: 20),
               child: Align(
                 alignment: AlignmentDirectional.bottomCenter,
                 child: Text(
                   categoryName,
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: Colors.black,
                       fontSize: 18,
                       fontWeight: FontWeight.bold),
@@ -156,8 +168,15 @@ class AddCategory extends StatefulWidget {
 
 class _AddCategoryState extends State<AddCategory> {
   Icon? _icon;
-  Color pickedColor = Color(0xFF);
+  Color pickedColor = const Color(0xFF);
   var newIcon;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    IconData heart = FontAwesomeIcons.heart;
+    print(heart.codePoint);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -169,8 +188,8 @@ class _AddCategoryState extends State<AddCategory> {
       child: InkWell(
         onTap: () {
           print("Add New Category");
-          var pickerColor = Color(0xFF);
-          var changeColor = Color(0xFF);
+          var pickerColor = const Color(0xFF);
+          var changeColor = const Color(0xFF);
           showModalBottomSheet(
               isScrollControlled: true,
               context: context,
@@ -209,14 +228,14 @@ class _AddCategoryState extends State<AddCategory> {
                                   print(e.toString());
                                 }
                               },
-                              child: Text("Select Icon")),
+                              child: const Text("Select Icon")),
                           Container(
                             child: Icon(newIcon),
                           ),
                           buildButton("Add Category", () async {
                             String name = Addcontroller.value.text;
-                            await homePageViewModel.addCategory(
-                                name, pickedColor);
+                            // await homePageViewModel.addCategory(
+                            //     name, pickedColor);
 
                             Navigator.pop(context);
                             // print("asdada");

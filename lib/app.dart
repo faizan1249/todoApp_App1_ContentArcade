@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Todo App',
-        initialRoute: GetStarted.id,
+        initialRoute: HomePage.id,
         routes: {
           GetStarted.id: ((context) => GetStarted()),
           WelcomeScreen.id: ((context) => WelcomeScreen()),
