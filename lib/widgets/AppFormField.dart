@@ -29,7 +29,7 @@ class AppTextField extends StatelessWidget {
         autofocus: false,
         obscureText: isObsecure,
         decoration: InputDecoration(
-          suffixIcon: Icon(FontAwesomeIcons.eye),
+          // suffixIcon: Icon(FontAwesomeIcons.eye),
           hintText: hintText,
           fillColor: whiteShade.withOpacity(0.5),
           filled: true,

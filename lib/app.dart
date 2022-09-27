@@ -8,6 +8,7 @@ import 'package:todo_app_day1/views/signup_screen.dart';
 import 'package:todo_app_day1/views/welcome_screen.dart';
 import 'views/get_started.dart';
 import 'package:provider/provider.dart';
+import 'viewModel/login_screen_viewModel.dart';
 
 class MyApp extends StatelessWidget {
   @override
@@ -16,12 +17,15 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<HomePageViewModel>(
           create: (_) => HomePageViewModel(),
-        )
+        ),
+        ChangeNotifierProvider<LoginScreenViewModel>(
+          create: (_) => LoginScreenViewModel(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Todo App',
-        initialRoute: HomePage.id,
+        initialRoute: GetStarted.id,
         routes: {
           GetStarted.id: ((context) => GetStarted()),
           WelcomeScreen.id: ((context) => WelcomeScreen()),
