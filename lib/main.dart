@@ -3,23 +3,14 @@ import 'package:todo_app_day1/app.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_background/flutter_background.dart';
-import 'package:workmanager/workmanager.dart';
-
-void callbackDispatcher() {
-  Workmanager().executeTask((taskName, inputData) {
-    print(
-        "Native called background task: $taskName"); //simpleTask will be emitted here.
-    return Future.value(true);
-  });
-}
+import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
+import 'package:todo_app_day1/viewModel/notifications.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Firebase.initializeApp();
-  Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
-  // Workmanager().registerOneOffTask('test_task', "Simple Task");
-  Workmanager().registerPeriodicTask('test_task_repeat', "Another Simple Task",
-      frequency: Duration(minutes: 15), initialDelay: Duration(seconds: 10));
+  await AndroidAlarmManager.initialize();
+  NotificationService().initNotification();
 
   const androidConfig = FlutterBackgroundAndroidConfig(
     notificationTitle: "Todo App",
@@ -35,7 +26,7 @@ void main() async {
     await FlutterBackground.enableBackgroundExecution();
   }
 
-    // if (hasPermission == true) {}
+  // if (hasPermission == true) {}
 
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,

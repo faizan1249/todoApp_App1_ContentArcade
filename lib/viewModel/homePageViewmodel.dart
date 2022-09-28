@@ -123,6 +123,7 @@ class HomePageViewModel with ChangeNotifier {
       }
     });
 
+
     firebaseInstance.ref('categories');
 
     var config =

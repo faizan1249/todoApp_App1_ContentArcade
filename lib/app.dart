@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:todo_app_day1/viewModel/homePageViewmodel.dart';
+import 'package:todo_app_day1/viewModel/dateTimePickerViewModel.dart';
 import 'package:todo_app_day1/views/get_started.dart';
 import 'package:todo_app_day1/views/home_page.dart';
 import 'package:todo_app_day1/views/login_screen.dart';
@@ -21,11 +22,14 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<LoginScreenViewModel>(
           create: (_) => LoginScreenViewModel(),
         ),
+        ChangeNotifierProvider<DateTimePickerViewModel>(
+          create: (_) => DateTimePickerViewModel(),
+        )
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Todo App',
-        initialRoute: GetStarted.id,
+        initialRoute: HomePage.id,
         routes: {
           GetStarted.id: ((context) => GetStarted()),
           WelcomeScreen.id: ((context) => WelcomeScreen()),
