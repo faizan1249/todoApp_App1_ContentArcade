@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:todo_app_day1/constants/app_colors.dart';
 import 'package:todo_app_day1/enum/app_status.dart';
 import 'package:todo_app_day1/model/categoryModel.dart';
+import 'package:todo_app_day1/viewModel/dateTimePickerViewModel.dart';
 import 'package:todo_app_day1/viewModel/homePageViewmodel.dart';
 import 'package:todo_app_day1/viewModel/notifications.dart';
 import 'package:todo_app_day1/widgets/AppFormField.dart';
@@ -60,7 +61,8 @@ class _HomePageState extends State<HomePage> {
     HomePageViewModel homePageViewModel =
         Provider.of<HomePageViewModel>(context);
 
-
+    DateTimePickerViewModel dateTimePickerViewModel =
+        Provider.of<DateTimePickerViewModel>(context);
 
     TextEditingController searchController = new TextEditingController();
     Size size = MediaQuery.of(context).size;
@@ -164,22 +166,7 @@ class _HomePageState extends State<HomePage> {
                           child: Text("Delete")),
                       ElevatedButton(
                           onPressed: () async {
-                            print("Fire Alarm");
-                            if (Platform.isAndroid) {
-                              AndroidAlarmManager alarmManager;
-
-                              await AndroidAlarmManager.periodic(
-                                  Duration(minutes: 1), 101, fireAlarm,
-                                  wakeup: true,
-                                  startAt: DateTime(
-                                      DateTime.now().year,
-                                      DateTime.now().month,
-                                      DateTime.now().day,
-                                      17,
-                                      14),
-                                  rescheduleOnReboot: true);
-                            }
-                            // homePageViewModel.deleteRealmFile();
+                            homePageViewModel.fireAlarm();
                           },
                           child: Text("Schedule Notification")),
                     ],
@@ -190,12 +177,6 @@ class _HomePageState extends State<HomePage> {
             ),
           );
   }
-}
-
-void fireAlarm() {
-  print("Faizan Alarm Fired at ${DateTime.now()}");
-  NotificationService notificationService = NotificationService();
-  notificationService.showSingleNotification();
 }
 
 class CategoryMenuCard extends StatelessWidget {
@@ -248,4 +229,3 @@ class CategoryMenuCard extends StatelessWidget {
     );
   }
 }
-

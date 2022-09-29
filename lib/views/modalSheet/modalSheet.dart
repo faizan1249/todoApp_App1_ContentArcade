@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:todo_app_day1/viewModel/dateTimePickerViewModel.dart';
 
 import '../../constants/app_colors.dart';
 import '../../model/categoryModel.dart';
@@ -34,10 +35,12 @@ class _AddCategoryState extends State<AddCategory> {
 
   @override
   Widget build(BuildContext context) {
-
     TextEditingController Addcontroller = TextEditingController();
     HomePageViewModel homePageViewModel =
-    Provider.of<HomePageViewModel>(context, listen: true);
+        Provider.of<HomePageViewModel>(context, listen: true);
+
+    DateTimePickerViewModel dateTimePickerViewModel =
+        Provider.of<DateTimePickerViewModel>(context, listen: true);
 
     return Container(
       child: InkWell(
@@ -72,8 +75,6 @@ class _AddCategoryState extends State<AddCategory> {
                             selectedColor: Colors.red,
                           ),
                           DateTimePicker(),
-
-
                           ElevatedButton(
                               onPressed: () async {
                                 var icon;
@@ -93,9 +94,12 @@ class _AddCategoryState extends State<AddCategory> {
                           buildButton("Add Category", () async {
                             String name = Addcontroller.value.text;
                             await homePageViewModel.addCategory(
-                                name, pickedColor);
+                                name,
+                                pickedColor,
+                                dateTimePickerViewModel.getSelectedDate,
+                                dateTimePickerViewModel.getSelectedTime);
 
-                            Navigator.pop(context);
+                            // Navigator.pop(context);
                             // print("asdada");
                           }, purpleBlueLight, WhiteColor),
                         ],

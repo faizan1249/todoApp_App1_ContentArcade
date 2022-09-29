@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Todo App',
-        initialRoute: HomePage.id,
+        initialRoute: GetStarted.id,
         routes: {
           GetStarted.id: ((context) => GetStarted()),
           WelcomeScreen.id: ((context) => WelcomeScreen()),

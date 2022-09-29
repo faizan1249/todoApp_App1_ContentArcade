@@ -45,9 +45,7 @@ class _DateTimePickerState extends State<DateTimePicker> {
         ),
         dateTimePickerViewModel.getShowTimeStatus == true
             ? Center(
-            child: Text(dateTimePickerViewModel.getSelectedTime
-
-                .toString()))
+                child: Text(dateTimePickerViewModel.getSelectedTime.toString()))
             : Center(child: const Text("Please Select Time")),
       ],
     );

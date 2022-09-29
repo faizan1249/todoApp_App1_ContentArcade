@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:todo_app_day1/constants/app_colors.dart';
+import 'package:todo_app_day1/views/login_screen.dart';
 import 'package:todo_app_day1/views/signup_screen.dart';
 import 'package:todo_app_day1/widgets/button.dart';
 
@@ -97,6 +98,9 @@ class WelcomeScreen extends StatelessWidget {
                             fontSize: 16),
                       ),
                       GestureDetector(
+                        onTap: (){
+                          Navigator.pushNamed(context, SignInScreen.id);
+                        },
                         child: Text(
                           "LOG IN",
                           style: TextStyle(color: Colors.blue),

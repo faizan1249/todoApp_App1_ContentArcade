@@ -30,11 +30,11 @@ class NotificationService {
     NotificationDetails notificationDetails = NotificationDetails(
       android: androidNotificationDetails,
     );
-
+    print("Faizan Alarm Fired at ${DateTime.now()}");
     await flutterLocalNotificationsPlugin.show(
       0,
       "${DateTime.now()}",
-      "Please Add your Todo or Check it",
+      "Please Do your Work",
       notificationDetails,
     );
   }
